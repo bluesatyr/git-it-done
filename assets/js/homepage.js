@@ -31,10 +31,19 @@ var getUserRepos = function(user) {
         } else {
             alert("Error: " + response.statusText);
         }
+    })
+    .catch(function(error) {
+        alert("Unable to connect to GitHub");
     });
 };
 
 var displayRepos = function(repos, searchTerm){
+    // check if api returned any repos
+    if (repos.length === 0) {
+        repoContainerEl.textContent = "No repositories found.";
+        return;
+    }
+    
     // clear old content
     repoContainerEl.textContent = "";
     repoSearchTerm.textContent = searchTerm;
