@@ -1,4 +1,4 @@
-// progress 6.2.5 
+// progress 6.2.6 
 var userFormEl = document.querySelector('#user-form');
 var nameInputEl = document.querySelector('#username');
 var repoContainerEl = document.querySelector('#repos-container');
@@ -24,9 +24,13 @@ var getUserRepos = function(user) {
     
     // make a request to the url
     fetch(apiUrl).then(function(response) {
-        response.json().then(function(data) {
-            displayRepos(data, user);    
-        });
+        if (response.ok) {
+            response.json().then(function(data) {
+                displayRepos(data, user);    
+            });
+        } else {
+            alert("Error: " + response.statusText);
+        }
     });
 };
 
